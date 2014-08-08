@@ -50,6 +50,7 @@ namespace ExpressiveAnnotations.Tests
             public bool Flag { get; set; }
             public string Text { get; set; }
             public byte SmallerNumber { get; set; }
+            public byte? SmallerNumberNullable { get; set; }
             public Utility.Stability? PoliticalStability { get; set; }
             public Utility.StabilityBytes? PoliticalStabilityBytes { get; set; }
 
@@ -172,6 +173,7 @@ namespace ExpressiveAnnotations.Tests
                 Flag = true,
                 Text = "hello world",
                 SmallerNumber = 13,
+                SmallerNumberNullable = 13,
                 PoliticalStability = Utility.Stability.High,
                 PoliticalStabilityBytes = Utility.StabilityBytes.High,
 
@@ -182,6 +184,7 @@ namespace ExpressiveAnnotations.Tests
                     Flag = false,
                     Text = " hello world ",
                     SmallerNumber = 1,
+                    SmallerNumberNullable = 1,
                     PoliticalStability = null,
                     PoliticalStabilityBytes = null,
                 }
@@ -195,7 +198,10 @@ namespace ExpressiveAnnotations.Tests
 
             Assert.IsTrue(parser.Parse(model.GetType(), "SmallerNumber != 1").Invoke(model));
             Assert.IsTrue(parser.Parse(model.GetType(), "SmallerNumber == 13").Invoke(model));
-            Assert.IsTrue(parser.Parse(model.GetType(), "SubModel.SmallerNumber / 2 == 0.5").Invoke(model));  
+            Assert.IsTrue(parser.Parse(model.GetType(), "SubModel.SmallerNumber / 2 == 0.5").Invoke(model));
+
+            Assert.IsTrue(parser.Parse(model.GetType(), "SmallerNumberNullable != null").Invoke(model));
+            Assert.IsTrue(parser.Parse(model.GetType(), "SubModel.SmallerNumberNullable / 2 == 0.5").Invoke(model));
 
             Assert.IsTrue(parser.Parse(model.GetType(), "PoliticalStability == 0").Invoke(model));
             Assert.IsTrue(parser.Parse(model.GetType(), "PoliticalStability == Utility.Stability.High").Invoke(model));

@@ -29,6 +29,13 @@ namespace ExpressiveAnnotations
             if ((oute2.Type == typeof(int)) || (oute2.Type == typeof(byte)))
                 oute2 = Expression.Convert(oute2, typeof(double));
 
+            // promote nullable int and byte to nullable double
+            if ((oute1.Type.IsNullable(typeof(int))) || (oute1.Type.IsNullable(typeof(byte))))
+                oute1 = Expression.Convert(oute1, typeof(Nullable<double>));
+            if ((oute2.Type.IsNullable(typeof(int))) || (oute2.Type.IsNullable(typeof(byte))))
+                oute2 = Expression.Convert(oute2, typeof(Nullable<double>));
+
+
             // non-nullable operand is converted to nullable if necessary, and the lifted-to-nullable form of the comparison is used (C# rule, which is currently not followed by expression trees)
             if (oute1.Type.IsNullable() && !oute2.Type.IsNullable())
                 oute2 = Expression.Convert(oute2, oute1.Type);
@@ -36,12 +43,15 @@ namespace ExpressiveAnnotations
                 oute1 = Expression.Convert(oute1, oute2.Type);
         }
 
-        public static bool IsNullable(this Type type)
+        public static bool IsNullable(this Type type, Type underlyingType = null)
         {
+
             if (type == null)
                 throw new ArgumentNullException("type");
 
-            return type.IsGenericType && type.GetGenericTypeDefinition() == typeof(Nullable<>);
+            Type actualUnderlyingType = Nullable.GetUnderlyingType(type);
+
+            return ((actualUnderlyingType != null) && ((underlyingType == null) || (actualUnderlyingType == underlyingType)));
         }
 
         public static Type ToNullable(this Type type)
