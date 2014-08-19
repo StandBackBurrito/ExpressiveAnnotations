@@ -211,6 +211,18 @@ var
             this.addMethod("IsRegexMatch", function(str, regex) {
                 return str !== null && str !== undefined && regex !== null && regex !== undefined && new RegExp(regex).test(str);
             });
+            this.addMethod("IsSameDate", function (dateA, dateB) {
+                if (dateA == null || dateB == null) {
+                    return false;
+                }
+
+                var a,b;
+                a = new Date(+dateA);
+                b = new Date(+dateB);
+                a.setHours(0, 0, 0, 0);
+                b.setHours(0, 0, 0, 0);
+                return +a == +b;
+            });
         }
     },
 

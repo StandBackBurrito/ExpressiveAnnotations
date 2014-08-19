@@ -280,6 +280,9 @@ namespace ExpressiveAnnotations.Tests
 
             Assert.IsTrue(parser.Parse<Model>("Number < SubModel.Number").Invoke(model));
 
+            Assert.IsTrue(parser.Parse<Model>("IsSameDate(Date, Now())").Invoke(model));
+            Assert.IsTrue(parser.Parse<Model>("!IsSameDate(Date, SubModel.Date)").Invoke(model));
+
             Assert.IsTrue(parser.Parse<Model>("SubModel.Date < NextWeek()").Invoke(model));
             Assert.IsTrue(parser.Parse<Model>("IncNumber(0) == SubModel.Number").Invoke(model));
             Assert.IsTrue(parser.Parse<Model>("IncNumber(Number) == SubModel.Number").Invoke(model));

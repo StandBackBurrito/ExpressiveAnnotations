@@ -3,7 +3,7 @@
 ///<reference path="./packages/Microsoft.jQuery.Unobtrusive.Validation.3.1.1/Content/Scripts/jquery.validate.unobtrusive.js"/>
 ///<reference path="./expressive.annotations.validate.js"/>
 
-//debugger; // enable firebug (preferably, check 'on for all web pages' option) for the debugger to aunch 
+//debugger; // enable firebug (preferably, check 'on for all web pages' option) for the debugger to launch 
 (function($, window, ea) { //scoping function (top-level, usually anonymous, prevents global namespace pollution)
 
     window.module("type helper");
@@ -158,6 +158,7 @@
         window.ok(m.IsEmail('nickname@domain.com') == true);
         window.ok(m.IsUrl('http://www.github.com/') == true);
         window.ok(m.IsRegexMatch('-0.3e-2', '^[\\+-]?\\d*\\.?\\d+(?:[eE][\\+-]?\\d+)?$') == true);
+        window.ok(m.IsSameDate(m.Now(), m.Today()) == true);
     });
 
 }($, window, window.ea.___6BE7863DC1DB4AFAA61BB53FF97FE169));
