@@ -138,6 +138,8 @@
         var o = {};
         ea.toolchain.registerMethods(o);
         var m = ea.toolchain.methods;
+        var tomorrow = m.Today();
+        tomorrow.setDate(tomorrow.getDate() + 1);
 
         window.ok(m.Now() > m.Today());
         window.ok(m.Length('1234') == 4);
@@ -159,6 +161,7 @@
         window.ok(m.IsUrl('http://www.github.com/') == true);
         window.ok(m.IsRegexMatch('-0.3e-2', '^[\\+-]?\\d*\\.?\\d+(?:[eE][\\+-]?\\d+)?$') == true);
         window.ok(m.IsSameDate(m.Now(), m.Today()) == true);
+        window.ok(m.IsSameDate(m.Today(), tomorrow) == false);
     });
 
 }($, window, window.ea.___6BE7863DC1DB4AFAA61BB53FF97FE169));
