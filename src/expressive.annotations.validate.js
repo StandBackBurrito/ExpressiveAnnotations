@@ -77,7 +77,7 @@ var
                 if (stringVal.error)
                     return { error: true, msg: 'Parsing error. Given value is not a string representing a Guid.' };
 
-                return stringVal.replace(/^{+|}+$/g, '');
+                return stringVal.toUpperCase();
             }
         },
         isNumeric: function(value) {
@@ -203,6 +203,9 @@ var
             });
             this.addMethod("IsRegexMatch", function(str, regex) {
                 return str !== null && str !== undefined && regex !== null && regex !== undefined && new RegExp(regex).test(str);
+            });
+            this.addMethod("Guid", function (str) {
+                return str.toUpperCase();
             });
         }
     },
