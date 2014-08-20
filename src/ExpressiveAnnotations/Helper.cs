@@ -31,11 +31,6 @@ namespace ExpressiveAnnotations
 
         }
 
-        public static bool IsGuid(this Type type)
-        {
-            return type != null && (type == typeof(Guid) || (type.IsNullable() && Nullable.GetUnderlyingType(type).IsGuid()));
-        }
-
         public static bool IsNumeric(this Type type)
         {
             if (type == null)
